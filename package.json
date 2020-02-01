@@ -1,0 +1,7 @@
+{
+	"name": "uwuifier",
+	"version": "0.1.0",
+	"plugin": "plugin.js",
+	"module": false,
+	"ccmodDependencies": {}
+}
