@@ -7,29 +7,37 @@ export default class uwuifier extends Plugin
 		this.BASE_DIR = mod.baseDirectory;
 		this.RELATIVE_DIR = this.BASE_DIR.substring(7);
 		this.LEXICON = {
+			'them': 'dem',
 			'the': 'da',
 			'th': 'd',
-			'oo': '\u0000',
 			'l': 'w',
 			'r': 'w',
+			'oo': '\u0000',
 			'o': 'owo',
 			'u': 'uwu',
-			'\\.': ' uwu.',
-			'\u0000': 'uwu'
+			'\u0000': 'uwu',
+			'\\.': '\u0000',
+			'.': ' uwu.',
+			'\u0000': '\\.',
+			'?': ' owo?'
 		};
 	}
 	
 	async preload() {}
 	async postload() {}
-	async prestart() {this._inject(this);}
 	
-	_inject(mod)
+	async prestart()
 	{
+		const self = this;
+		
 		ig.LangLabel.inject({
 			init: function(a)
 			{
-				if(a)
-					a.en_US = mod.generateDumpsterFire(a.en_US);
+				if(a && a.status !== 'uwuified')
+				{
+					a.en_US = self.generateDumpsterFire(a.en_US.toLowerCase());
+					a.status = 'uwuified';
+				}
 				this.parent(...arguments);
 			}
 		});
@@ -39,7 +47,7 @@ export default class uwuifier extends Plugin
 	{
 		if(line && line.constructor === String)
 			for(let key in this.LEXICON)
-				line = line.replace(new RegExp(key, 'g'), this.LEXICON[key]);
+				line = line.split(key).join(this.LEXICON[key]);
 		return line;
 	}
 }
