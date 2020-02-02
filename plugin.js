@@ -10,9 +10,9 @@ export default class uwuifier extends Plugin
 			'them': 'dem',
 			'then': 'den',
 			'they': 'dey',
-			'there': 'der',
 			'these': 'deez',
 			'give': 'giev',
+			'ight': 'ite',
 			'the': 'da',
 			'and': 'an',
 			'th': 'd',
@@ -27,6 +27,7 @@ export default class uwuifier extends Plugin
 			'?': ' owo?'
 		};
 		this.APPREHEND = {
+			'there': 'der',
 			'just': 'jus',
 			'you': 'yuwu',
 			'oo': 'uwu',
