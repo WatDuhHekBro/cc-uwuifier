@@ -7,6 +7,7 @@ export default class uwuifier extends Plugin
 		this.BASE_DIR = mod.baseDirectory;
 		this.RELATIVE_DIR = this.BASE_DIR.substring(7);
 		this.LEXICON = {
+			'...': '... ',
 			'them': 'dem',
 			'then': 'den',
 			'they': 'dey',
