@@ -1,7 +1,7 @@
 {
 	"name": "uwuifier",
 	"version": "0.1.4",
-	"plugin": "plugin.js",
-	"module": false,
+	"prestart": "prestart.js",
+	"module": true,
 	"ccmodDependencies": {}
 }
