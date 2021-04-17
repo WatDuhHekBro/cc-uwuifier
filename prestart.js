@@ -31,40 +31,30 @@ const APPREHEND = {
 };
 
 ig.LangLabel.inject({
-	uwuified: false,
-	init: function(data)
-	{
+	init(data) {
 		if(data)
-		{
-			if(!data.uwuified)
-			{
-				data.en_US = generateDumpsterFire(data.en_US.toLowerCase());
-				data.uwuified = true;
-			}
-		}
-		this.parent(...arguments);
+			data.en_US = generateDumpsterFire(data.en_US.toLowerCase());
+		this.parent(data);
 	}
 });
 
-function generateDumpsterFire(line)
-{
-	if(line && line.constructor === String)
-	{
+// Adding a non-enumerable property to prevent crashing while also keeping track of which text has been uwuified doesn't seem to be working.
+// So I'm taking the lazy solution of just checking if there's a null byte at position zero.
+function generateDumpsterFire(line) {
+	if(line && line.constructor === String && line[0] !== '\0') {
 		// Press \\i[key-up]\\i[key-left]\\i[key-down]\\i[key-right] to move around
 		// You are at \\c[3]level \\v[player.level]\\c[0]!
 		let stack = [];
 		let selection = '';
 		let mode = false;
 		
-		for(let i = 0; i < line.length; i++)
-		{
+		for(let i = 0; i < line.length; i++) {
 			if(line.substring(i-3, i) === '\\v[' || line.substring(i-3, i) === '\\i[')
 				mode = true;
-			else if(mode && line[i] === ']')
-			{
+			else if(mode && line[i] === ']') {
 				mode = false;
 				stack.push(selection);
-				line = line.replace(selection, '\u0000');
+				line = line.replace(selection, '\0');
 				i -= selection.length - 1;
 				selection = '';
 			}
@@ -86,9 +76,11 @@ function generateDumpsterFire(line)
 		for(let key in APPREHEND)
 			line = line.split('\u0001' + index++).join(APPREHEND[key]);
 		
-		while(stack.length > 0) {
-			line = line.replace('\u0000', stack.shift());
-		}
+		while(stack.length > 0)
+			line = line.replace('\0', stack.shift());
+		
+		line = '\0' + line;
 	}
+	
 	return line;
 }
