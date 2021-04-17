@@ -1,6 +1,8 @@
 {
 	"name": "uwuifier",
-	"version": "0.1.4",
+	"version": "1.0.0",
+	"description": "Dynamically uwuifies text.",
+	"homepage": "https://github.com/WatDuhHekBro/cc-uwuifier",
 	"prestart": "prestart.js",
 	"module": true,
 	"ccmodDependencies": {}
