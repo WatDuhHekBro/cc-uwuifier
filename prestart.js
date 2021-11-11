@@ -32,8 +32,14 @@ const APPREHEND = {
 
 ig.LangLabel.inject({
 	init(data) {
-		if(data)
-			data.en_US = generateDumpsterFire(data.en_US.toLowerCase());
+		if(data) {
+			if(data.constructor === String) {
+				if(ig.currentLang === 'en_US')
+					data = generateDumpsterFire(data);
+			} else {
+				data.en_US = generateDumpsterFire(data.en_US);
+			}
+		}
 		this.parent(data);
 	}
 });
@@ -42,6 +48,8 @@ ig.LangLabel.inject({
 // So I'm taking the lazy solution of just checking if there's a null byte at position zero.
 function generateDumpsterFire(line) {
 	if(line && line.constructor === String && line[0] !== '\0') {
+		line = line.toLowerCase();
+
 		// Press \\i[key-up]\\i[key-left]\\i[key-down]\\i[key-right] to move around
 		// You are at \\c[3]level \\v[player.level]\\c[0]!
 		let stack = [];
