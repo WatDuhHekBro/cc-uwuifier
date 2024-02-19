@@ -1,0 +1,10 @@
+{
+	"id": "uwuifier",
+	"version": "1.0.2",
+	"title": "uwuifier",
+	"description": "Dynamically uwuifies text.",
+	"repository": "https://github.com/WatDuhHekBro/cc-uwuifier",
+    "tags": ["fun"],
+    "authors": ["WatDuhHekBro", "dmitmel"],
+	"prestart": "prestart.js"
+}
